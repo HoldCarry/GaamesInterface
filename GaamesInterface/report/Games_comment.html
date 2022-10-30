@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8"/>
+    <title>Test Report</title>
+    <link href="assets/style.css" rel="stylesheet" type="text/css"/></head>
+  <body onLoad="init()">
+    <script>/* This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this file,
+ * You can obtain one at http://mozilla.org/MPL/2.0/. */
+
+
+function toArray(iter) {
+    if (iter === null) {
+        return null;
+    }
+    return Array.prototype.slice.call(iter);
+}
+
+function find(selector, elem) { // eslint-disable-line no-redeclare
+    if (!elem) {
+        elem = document;
+    }
+    return elem.querySelector(selector);
+}
+
+function findAll(selector, elem) {
+    if (!elem) {
+        elem = document;
+    }
+    return toArray(elem.querySelectorAll(selector));
+}
+
+function sortColumn(elem) {
+    toggleSortStates(elem);
+    const colIndex = toArray(elem.parentNode.childNodes).indexOf(elem);
+    let key;
+    if (elem.classList.contains('result')) {
+        key = keyResult;
+    } else if (elem.classList.contains('links')) {
+        key = keyLink;
+    } else {
+        key = keyAlpha;
+    }
+    sortTable(elem, key(colIndex));
+}
+
+function showAllExtras() { // eslint-disable-line no-unused-vars
+    findAll('.col-result').forEach(showExtras);
+}
+
+function hideAllExtras() { // eslint-disable-line no-unused-vars
+    findAll('.col-result').forEach(hideExtras);
+}
+
+function showExtras(colresultElem) {
+    const extras = colresultElem.parentNode.nextElementSibling;
+    const expandcollapse = colresultElem.firstElementChild;
+    extras.classList.remove('collapsed');
+    expandcollapse.classList.remove('expander');
+    expandcollapse.classList.add('collapser');
+}
+
+function hideExtras(colresultElem) {
+    const extras = colresultElem.parentNode.nextElementSibling;
+    const expandcollapse = colresultElem.firstElementChild;
+    extras.classList.add('collapsed');
+    expandcollapse.classList.remove('collapser');
+    expandcollapse.classList.add('expander');
+}
+
+function showFilters() {
+    const filterItems = document.getElementsByClassName('filter');
+    for (let i = 0; i < filterItems.length; i++)
+        filterItems[i].hidden = false;
+}
+
+function addCollapse() {
+    // Add links for show/hide all
+    const resulttable = find('table#results-table');
+    const showhideall = document.createElement('p');
+    showhideall.innerHTML = '<a href="javascript:showAllExtras()">Show all details</a> / ' +
+                            '<a href="javascript:hideAllExtras()">Hide all details</a>';
+    resulttable.parentElement.insertBefore(showhideall, resulttable);
+
+    // Add show/hide link to each result
+    findAll('.col-result').forEach(function(elem) {
+        const collapsed = getQueryParameter('collapsed') || 'Passed';
+        const extras = elem.parentNode.nextElementSibling;
+        const expandcollapse = document.createElement('span');
+        if (extras.classList.contains('collapsed')) {
+            expandcollapse.classList.add('expander');
+        } else if (collapsed.includes(elem.innerHTML)) {
+            extras.classList.add('collapsed');
+            expandcollapse.classList.add('expander');
+        } else {
+            expandcollapse.classList.add('collapser');
+        }
+        elem.appendChild(expandcollapse);
+
+        elem.addEventListener('click', function(event) {
+            if (event.currentTarget.parentNode.nextElementSibling.classList.contains('collapsed')) {
+                showExtras(event.currentTarget);
+            } else {
+                hideExtras(event.currentTarget);
+            }
+        });
+    });
+}
+
+function getQueryParameter(name) {
+    const match = RegExp('[?&]' + name + '=([^&]*)').exec(window.location.search);
+    return match && decodeURIComponent(match[1].replace(/\+/g, ' '));
+}
+
+function init () { // eslint-disable-line no-unused-vars
+    resetSortHeaders();
+
+    addCollapse();
+
+    showFilters();
+
+    sortColumn(find('.initial-sort'));
+
+    findAll('.sortable').forEach(function(elem) {
+        elem.addEventListener('click',
+            function() {
+                sortColumn(elem);
+            }, false);
+    });
+}
+
+function sortTable(clicked, keyFunc) {
+    const rows = findAll('.results-table-row');
+    const reversed = !clicked.classList.contains('asc');
+    const sortedRows = sort(rows, keyFunc, reversed);
+    /* Whole table is removed here because browsers acts much slower
+     * when appending existing elements.
+     */
+    const thead = document.getElementById('results-table-head');
+    document.getElementById('results-table').remove();
+    const parent = document.createElement('table');
+    parent.id = 'results-table';
+    parent.appendChild(thead);
+    sortedRows.forEach(function(elem) {
+        parent.appendChild(elem);
+    });
+    document.getElementsByTagName('BODY')[0].appendChild(parent);
+}
+
+function sort(items, keyFunc, reversed) {
+    const sortArray = items.map(function(item, i) {
+        return [keyFunc(item), i];
+    });
+
+    sortArray.sort(function(a, b) {
+        const keyA = a[0];
+        const keyB = b[0];
+
+        if (keyA == keyB) return 0;
+
+        if (reversed) {
+            return keyA < keyB ? 1 : -1;
+        } else {
+            return keyA > keyB ? 1 : -1;
+        }
+    });
+
+    return sortArray.map(function(item) {
+        const index = item[1];
+        return items[index];
+    });
+}
+
+function keyAlpha(colIndex) {
+    return function(elem) {
+        return elem.childNodes[1].childNodes[colIndex].firstChild.data.toLowerCase();
+    };
+}
+
+function keyLink(colIndex) {
+    return function(elem) {
+        const dataCell = elem.childNodes[1].childNodes[colIndex].firstChild;
+        return dataCell == null ? '' : dataCell.innerText.toLowerCase();
+    };
+}
+
+function keyResult(colIndex) {
+    return function(elem) {
+        const strings = ['Error', 'Failed', 'Rerun', 'XFailed', 'XPassed',
+            'Skipped', 'Passed'];
+        return strings.indexOf(elem.childNodes[1].childNodes[colIndex].firstChild.data);
+    };
+}
+
+function resetSortHeaders() {
+    findAll('.sort-icon').forEach(function(elem) {
+        elem.parentNode.removeChild(elem);
+    });
+    findAll('.sortable').forEach(function(elem) {
+        const icon = document.createElement('div');
+        icon.className = 'sort-icon';
+        icon.textContent = 'vvv';
+        elem.insertBefore(icon, elem.firstChild);
+        elem.classList.remove('desc', 'active');
+        elem.classList.add('asc', 'inactive');
+    });
+}
+
+function toggleSortStates(elem) {
+    //if active, toggle between asc and desc
+    if (elem.classList.contains('active')) {
+        elem.classList.toggle('asc');
+        elem.classList.toggle('desc');
+    }
+
+    //if inactive, reset all other functions and add ascending active
+    if (elem.classList.contains('inactive')) {
+        resetSortHeaders();
+        elem.classList.remove('inactive');
+        elem.classList.add('active');
+    }
+}
+
+function isAllRowsHidden(value) {
+    return value.hidden == false;
+}
+
+function filterTable(elem) { // eslint-disable-line no-unused-vars
+    const outcomeAtt = 'data-test-result';
+    const outcome = elem.getAttribute(outcomeAtt);
+    const classOutcome = outcome + ' results-table-row';
+    const outcomeRows = document.getElementsByClassName(classOutcome);
+
+    for(let i = 0; i < outcomeRows.length; i++){
+        outcomeRows[i].hidden = !elem.checked;
+    }
+
+    const rows = findAll('.results-table-row').filter(isAllRowsHidden);
+    const allRowsHidden = rows.length == 0 ? true : false;
+    const notFoundMessage = document.getElementById('not-found-message');
+    notFoundMessage.hidden = !allRowsHidden;
+}
+</script>
+    <h1>Games_comment.html</h1>
+    <p>Report generated on 02-Sep-2021 at 15:35:08 by <a href="https://pypi.python.org/pypi/pytest-html">pytest-html</a> v3.1.1</p>
+    <h2>Environment</h2>
+    <table id="environment">
+      <tr>
+        <td>JAVA_HOME</td>
+        <td>D:\JDK\az</td></tr>
+      <tr>
+        <td>Packages</td>
+        <td>{"pluggy": "0.13.1", "py": "1.10.0", "pytest": "6.2.4"}</td></tr>
+      <tr>
+        <td>Platform</td>
+        <td>Windows-10-10.0.19041-SP0</td></tr>
+      <tr>
+        <td>Plugins</td>
+        <td>{"allure-pytest": "2.9.43", "html": "3.1.1", "metadata": "1.11.0"}</td></tr>
+      <tr>
+        <td>Python</td>
+        <td>3.6.0</td></tr></table>
+    <h2>Summary</h2>
+    <p>5 tests ran in 0.60 seconds. </p>
+    <p class="filter" hidden="true">(Un)check the boxes to filter the results.</p><input checked="true" class="filter" data-test-result="passed" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="passed">5 passed</span>, <input checked="true" class="filter" data-test-result="skipped" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="skipped">0 skipped</span>, <input checked="true" class="filter" data-test-result="failed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="failed">0 failed</span>, <input checked="true" class="filter" data-test-result="error" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="error">0 errors</span>, <input checked="true" class="filter" data-test-result="xfailed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xfailed">0 expected failures</span>, <input checked="true" class="filter" data-test-result="xpassed" disabled="true" hidden="true" name="filter_checkbox" onChange="filterTable(this)" type="checkbox"/><span class="xpassed">0 unexpected passes</span>
+    <h2>Results</h2>
+    <table id="results-table">
+      <thead id="results-table-head">
+        <tr>
+          <th class="sortable result initial-sort" col="result">Result</th>
+          <th class="sortable" col="name">Test</th>
+          <th class="sortable" col="duration">Duration</th>
+          <th class="sortable links" col="links">Links</th></tr>
+        <tr hidden="true" id="not-found-message">
+          <th colspan="4">No results found. Try to check the filters</th></tr></thead>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">test_case/test_Configure_Interface.py::Test_Configure_Interface::test_configure_interface[/games/config/v1/struct-pkg=com.oneplus.gamespace-headers0-get-expect0-正常获取客户端模块配置接口]</td>
+          <td class="col-duration">0.05</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2021-09-02 15:35:08,465 - test_Configure_Interface.test_configure_interface.22 - INFO - .
+用例标题：正常获取客户端模块配置接口
+2021-09-02 15:35:08,513 - test_Configure_Interface.test_configure_interface.38 - INFO - 请求接口：/games/config/v1/struct
+2021-09-02 15:35:08,514 - test_Configure_Interface.test_configure_interface.39 - INFO - 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+2021-09-02 15:35:08,514 - test_Configure_Interface.test_configure_interface.40 - INFO - 请求参数：pkg=com.oneplus.gamespace
+2021-09-02 15:35:08,514 - test_Configure_Interface.test_configure_interface.41 - INFO - 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+2021-09-02 15:35:08,515 - test_Configure_Interface.test_configure_interface.42 - INFO - 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+2021-09-02 15:35:08,515 - test_Configure_Interface.test_configure_interface.43 - INFO - 共耗时 0.05154252052307129 秒.
+
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     test_Configure_Interface.py:test_Configure_Interface.py:22 .
+用例标题：正常获取客户端模块配置接口
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:38 请求接口：/games/config/v1/struct
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:39 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:40 请求参数：pkg=com.oneplus.gamespace
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:41 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:42 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:43 共耗时 0.05154252052307129 秒.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">test_case/test_Configure_Interface.py::Test_Configure_Interface::test_configure_interface[/games/config/v1/struct-pkg=-headers1-get-expect1-不传包名，获取客户端模块配置接口]</td>
+          <td class="col-duration">0.05</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2021-09-02 15:35:08,518 - test_Configure_Interface.test_configure_interface.22 - INFO - .
+用例标题：不传包名，获取客户端模块配置接口
+2021-09-02 15:35:08,570 - test_Configure_Interface.test_configure_interface.38 - INFO - 请求接口：/games/config/v1/struct
+2021-09-02 15:35:08,570 - test_Configure_Interface.test_configure_interface.39 - INFO - 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+2021-09-02 15:35:08,570 - test_Configure_Interface.test_configure_interface.40 - INFO - 请求参数：pkg=
+2021-09-02 15:35:08,571 - test_Configure_Interface.test_configure_interface.41 - INFO - 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+2021-09-02 15:35:08,571 - test_Configure_Interface.test_configure_interface.42 - INFO - 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+2021-09-02 15:35:08,571 - test_Configure_Interface.test_configure_interface.43 - INFO - 共耗时 0.0527806282043457 秒.
+
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     test_Configure_Interface.py:test_Configure_Interface.py:22 .
+用例标题：不传包名，获取客户端模块配置接口
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:38 请求接口：/games/config/v1/struct
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:39 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:40 请求参数：pkg=
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:41 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:42 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:43 共耗时 0.0527806282043457 秒.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">test_case/test_Configure_Interface.py::Test_Configure_Interface::test_configure_interface[/games/config/v1/struct-pkg=com.nearme.gamecenter-headers2-get-expect2-包名非Games包名，获取客户端模块配置接口]</td>
+          <td class="col-duration">0.04</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2021-09-02 15:35:08,574 - test_Configure_Interface.test_configure_interface.22 - INFO - .
+用例标题：包名非Games包名，获取客户端模块配置接口
+2021-09-02 15:35:08,610 - test_Configure_Interface.test_configure_interface.38 - INFO - 请求接口：/games/config/v1/struct
+2021-09-02 15:35:08,610 - test_Configure_Interface.test_configure_interface.39 - INFO - 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+2021-09-02 15:35:08,610 - test_Configure_Interface.test_configure_interface.40 - INFO - 请求参数：pkg=com.nearme.gamecenter
+2021-09-02 15:35:08,611 - test_Configure_Interface.test_configure_interface.41 - INFO - 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+2021-09-02 15:35:08,611 - test_Configure_Interface.test_configure_interface.42 - INFO - 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+2021-09-02 15:35:08,611 - test_Configure_Interface.test_configure_interface.43 - INFO - 共耗时 0.0372309684753418 秒.
+
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     test_Configure_Interface.py:test_Configure_Interface.py:22 .
+用例标题：包名非Games包名，获取客户端模块配置接口
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:38 请求接口：/games/config/v1/struct
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:39 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:40 请求参数：pkg=com.nearme.gamecenter
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:41 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:42 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:43 共耗时 0.0372309684753418 秒.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">test_case/test_Configure_Interface.py::Test_Configure_Interface::test_configure_interface[/games/config/v1/struct-pkg=123456-headers3-get-expect3-包名为数字，获取客户端模块配置接口]</td>
+          <td class="col-duration">0.03</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2021-09-02 15:35:08,615 - test_Configure_Interface.test_configure_interface.22 - INFO - .
+用例标题：包名为数字，获取客户端模块配置接口
+2021-09-02 15:35:08,651 - test_Configure_Interface.test_configure_interface.38 - INFO - 请求接口：/games/config/v1/struct
+2021-09-02 15:35:08,651 - test_Configure_Interface.test_configure_interface.39 - INFO - 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+2021-09-02 15:35:08,651 - test_Configure_Interface.test_configure_interface.40 - INFO - 请求参数：pkg=123456
+2021-09-02 15:35:08,652 - test_Configure_Interface.test_configure_interface.41 - INFO - 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+2021-09-02 15:35:08,652 - test_Configure_Interface.test_configure_interface.42 - INFO - 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+2021-09-02 15:35:08,652 - test_Configure_Interface.test_configure_interface.43 - INFO - 共耗时 0.036899566650390625 秒.
+
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     test_Configure_Interface.py:test_Configure_Interface.py:22 .
+用例标题：包名为数字，获取客户端模块配置接口
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:38 请求接口：/games/config/v1/struct
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:39 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:40 请求参数：pkg=123456
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:41 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:42 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:43 共耗时 0.036899566650390625 秒.<br/></div></td></tr></tbody>
+      <tbody class="passed results-table-row">
+        <tr>
+          <td class="col-result">Passed</td>
+          <td class="col-name">test_case/test_Configure_Interface.py::Test_Configure_Interface::test_configure_interface[/games/config/v1/struct-pkg=&quot;垃圾&quot;-headers4-get-expect4-包名为字符串，获取客户端模块配置接口]</td>
+          <td class="col-duration">0.03</td>
+          <td class="col-links"></td></tr>
+        <tr>
+          <td class="extra" colspan="4">
+            <div class="log"> ------------------------------Captured stderr call------------------------------ <br/>2021-09-02 15:35:08,655 - test_Configure_Interface.test_configure_interface.22 - INFO - .
+用例标题：包名为字符串，获取客户端模块配置接口
+2021-09-02 15:35:08,691 - test_Configure_Interface.test_configure_interface.38 - INFO - 请求接口：/games/config/v1/struct
+2021-09-02 15:35:08,691 - test_Configure_Interface.test_configure_interface.39 - INFO - 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+2021-09-02 15:35:08,691 - test_Configure_Interface.test_configure_interface.40 - INFO - 请求参数：pkg=&quot;垃圾&quot;
+2021-09-02 15:35:08,691 - test_Configure_Interface.test_configure_interface.41 - INFO - 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+2021-09-02 15:35:08,692 - test_Configure_Interface.test_configure_interface.42 - INFO - 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+2021-09-02 15:35:08,692 - test_Configure_Interface.test_configure_interface.43 - INFO - 共耗时 0.03693222999572754 秒.
+
+<br/> -------------------------------Captured log call-------------------------------- <br/>INFO     test_Configure_Interface.py:test_Configure_Interface.py:22 .
+用例标题：包名为字符串，获取客户端模块配置接口
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:38 请求接口：/games/config/v1/struct
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:39 请求到头：{&#x27;Accept&#x27;: &#x27;application/json&#x27;, &#x27;locale&#x27;: &#x27;zh_CN;IN;IN&#x27;, &#x27;User-Agent&#x27;: &#x27;OPPO/PAFM00/29/10.0/5.1/31001/10000/1.0.0&#x27;, &#x27;ut&#x27;: &#x27;TOKEN_&#x27;}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:40 请求参数：pkg=&quot;垃圾&quot;
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:41 请求的期望结果：{&#x27;status_code&#x27;: 200, &#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162617891, &#x27;actEnd&#x27;: 0, &#x27;actStart&#x27;: 0}}}
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:42 请求到的信息是：(200, {&#x27;status&#x27;: 0, &#x27;msg&#x27;: &#x27;success&#x27;, &#x27;data&#x27;: {&#x27;name&#x27;: None, &#x27;productId&#x27;: 31001, &#x27;version&#x27;: 103, &#x27;modules&#x27;: [{&#x27;code&#x27;: 10, &#x27;order&#x27;: 1, &#x27;title&#x27;: &#x27;Home&#x27;, &#x27;views&#x27;: [], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: True}, {&#x27;code&#x27;: 20, &#x27;order&#x27;: 2, &#x27;title&#x27;: &#x27;Explore&#x27;, &#x27;views&#x27;: [{&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30001, &#x27;title&#x27;: &#x27;jjjj&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore&#x27;, &#x27;bgImg&#x27;: &#x27;http://cdofs.oppomobile.com/cdo-portal/201902/22/d3b71b52eb7f0b2ec04d1bf0717813ff.png&#x27;, &#x27;viewId&#x27;: 1039, &#x27;default&#x27;: True}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30002, &#x27;title&#x27;: &#x27;tab2&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/2&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/openplat/cdoDomain/202108/18/413beeb80df9a432c137f405211a4b36.jpg&#x27;, &#x27;viewId&#x27;: 1046, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30003, &#x27;title&#x27;: &#x27;tab3&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/3&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1047, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30004, &#x27;title&#x27;: &#x27;tab4&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/4&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1064, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30005, &#x27;title&#x27;: &#x27;tab5&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/5&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1065, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 30006, &#x27;title&#x27;: &#x27;tab6&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/6&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1066, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 0, &#x27;pageCode&#x27;: 30007, &#x27;title&#x27;: &#x27;蜘蛛网&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v2/explore/tab/7&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1071, &#x27;default&#x27;: False}, {&#x27;pageType&#x27;: 1, &#x27;pageCode&#x27;: 50007300, &#x27;title&#x27;: &#x27;专题1&#x27;, &#x27;path&#x27;: &#x27;/games/dynamic/v1/page/50007300&#x27;, &#x27;bgImg&#x27;: &#x27;https://sgp-image-c.wanyol.com/cdo-store-img-test/&#x27;, &#x27;viewId&#x27;: 1072, &#x27;default&#x27;: False}], &#x27;srcType&#x27;: 0, &#x27;config&#x27;: {}, &#x27;stat&#x27;: {}, &#x27;default&#x27;: False}], &#x27;config&#x27;: {&#x27;moduleVersion&#x27;: 162946471, &#x27;actEnd&#x27;: 1633046399000, &#x27;actStart&#x27;: 1629849600000}}})
+INFO     test_Configure_Interface.py:test_Configure_Interface.py:43 共耗时 0.03693222999572754 秒.<br/></div></td></tr></tbody></table></body></html>

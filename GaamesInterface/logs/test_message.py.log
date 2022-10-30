@@ -1,0 +1,978 @@
+2021-09-01 16:09:40,370 - test_message.test_MessageTable.18 - INFO - .
+用例标题：正常请求消息列表
+2021-09-01 16:09:40,840 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:40,840 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:40,840 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:40,841 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}}
+2021-09-01 16:09:40,841 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}})
+2021-09-01 16:09:40,841 - test_message.test_MessageTable.38 - INFO - 共耗时 0.47250866889953613 秒.
+
+2021-09-01 16:09:40,870 - test_message.test_MessageTable.18 - INFO - .
+用例标题：未登录请求消息列表
+2021-09-01 16:09:40,906 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:40,906 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:40,906 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:40,906 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}}
+2021-09-01 16:09:40,906 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}})
+2021-09-01 16:09:40,907 - test_message.test_MessageTable.38 - INFO - 共耗时 0.038082122802734375 秒.
+
+2021-09-01 16:09:40,909 - test_message.test_MessageTable.18 - INFO - .
+用例标题：officialId值为null请求消息列表
+2021-09-01 16:09:40,942 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:40,943 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:40,944 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:40,945 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': None, 'pageNo': 1, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:40,945 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': "Could not copy property 'officialId' from source to target", 'data': 'not fond'}
+2021-09-01 16:09:40,946 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/messages', 'message': "Could not copy property 'officialId' from source to target; nested exception is java.lang.IllegalArgumentException", 'time': '2021-09-01 08:09:40', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:40,947 - test_message.test_MessageTable.38 - INFO - 共耗时 0.03783226013183594 秒.
+
+2021-09-01 16:09:41,019 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageNo值为null请求消息列表
+2021-09-01 16:09:41,347 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:41,347 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,347 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,347 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': None, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:41,347 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': "Could not copy property 'officialId' from source to target", 'data': 'not fond'}
+2021-09-01 16:09:41,348 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/messages', 'message': "Could not copy property 'pageNo' from source to target; nested exception is java.lang.IllegalArgumentException", 'time': '2021-09-01 08:09:41', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:41,348 - test_message.test_MessageTable.38 - INFO - 共耗时 0.3296036720275879 秒.
+
+2021-09-01 16:09:41,361 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageSize值为null请求消息列表
+2021-09-01 16:09:41,389 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:41,389 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,389 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,389 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': None, 'msgType': 1}
+2021-09-01 16:09:41,389 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': "Could not copy property 'officialId' from source to target", 'data': 'not fond'}
+2021-09-01 16:09:41,389 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/messages', 'message': "Could not copy property 'pageSize' from source to target; nested exception is java.lang.IllegalArgumentException", 'time': '2021-09-01 08:09:41', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:41,390 - test_message.test_MessageTable.38 - INFO - 共耗时 0.028966426849365234 秒.
+
+2021-09-01 16:09:41,402 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageSize值为null请求消息列表
+2021-09-01 16:09:41,428 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,428 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,428 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': 5, 'msgType': None}
+2021-09-01 16:09:41,428 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}}
+2021-09-01 16:09:41,428 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}})
+2021-09-01 16:09:41,428 - test_message.test_MessageTable.38 - INFO - 共耗时 0.025795698165893555 秒.
+
+2021-09-01 16:09:41,431 - test_message.test_MessageTable.18 - INFO - .
+用例标题：officialId为99999999的超大数值请求信息列表
+2021-09-01 16:09:41,455 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,456 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,456 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 99999999, 'pageNo': 1, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:41,456 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}}
+2021-09-01 16:09:41,456 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}})
+2021-09-01 16:09:41,456 - test_message.test_MessageTable.38 - INFO - 共耗时 0.025340557098388672 秒.
+
+2021-09-01 16:09:41,459 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageNo为99999999的超大数值请求信息列表
+2021-09-01 16:09:41,487 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,487 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,488 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 99999999, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:41,488 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 99999999, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}}
+2021-09-01 16:09:41,488 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 99999999, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}})
+2021-09-01 16:09:41,488 - test_message.test_MessageTable.38 - INFO - 共耗时 0.028342723846435547 秒.
+
+2021-09-01 16:09:41,491 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageSize值为99999999的超大数值请求信息列表
+2021-09-01 16:09:41,523 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,523 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,523 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': 99999999, 'msgType': 1}
+2021-09-01 16:09:41,524 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}}
+2021-09-01 16:09:41,524 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}})
+2021-09-01 16:09:41,524 - test_message.test_MessageTable.38 - INFO - 共耗时 0.03304862976074219 秒.
+
+2021-09-01 16:09:41,527 - test_message.test_MessageTable.18 - INFO - .
+用例标题：msgType值为99999999的超大数值请求信息列表
+2021-09-01 16:09:41,554 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,554 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,554 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': 5, 'msgType': 99999999}
+2021-09-01 16:09:41,555 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}}
+2021-09-01 16:09:41,555 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}})
+2021-09-01 16:09:41,555 - test_message.test_MessageTable.38 - INFO - 共耗时 0.02910017967224121 秒.
+
+2021-09-01 16:09:41,558 - test_message.test_MessageTable.18 - INFO - .
+用例标题：officialId为字符串“什么鬼”请求信息列表
+2021-09-01 16:09:41,626 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:41,626 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,626 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,626 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': '什么鬼', 'pageNo': 1, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:41,626 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': 'not fond'}
+2021-09-01 16:09:41,627 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/messages","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.lang.Long` from String "ä»\x80ä¹\x88é¬¼": not a valid Long value\n at [Source: (byte[])"{"officialId": "\\u4ec0\\u4e48\\u9b3c", "pageNo": 1, "pageSize": 5, "msgType": 1}"; line: 1, column: 16] (through reference chain: com.heytap.global.community.domain.req.MessageDetailRequest["officialId"])","time":"2021-09-01 08:09:41","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:41,627 - test_message.test_MessageTable.38 - INFO - 共耗时 0.07009029388427734 秒.
+
+2021-09-01 16:09:41,673 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageNo为字符串“什么鬼”请求信息列表
+2021-09-01 16:09:41,722 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:41,722 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,722 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,722 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': '什么鬼', 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:41,723 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': 'not fond'}
+2021-09-01 16:09:41,723 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/messages","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.lang.Integer` from String "ä»\x80ä¹\x88é¬¼": not a valid Integer value\n at [Source: (byte[])"{"officialId": 470, "pageNo": "\\u4ec0\\u4e48\\u9b3c", "pageSize": 5, "msgType": 1}"; line: 1, column: 31] (through reference chain: com.heytap.global.community.domain.req.MessageDetailRequest["pageNo"])","time":"2021-09-01 08:09:41","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:41,723 - test_message.test_MessageTable.38 - INFO - 共耗时 0.0495905876159668 秒.
+
+2021-09-01 16:09:41,736 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageSize值为字符串“什么鬼”请求信息列表
+2021-09-01 16:09:41,793 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:41,793 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,794 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,794 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': '什么鬼', 'msgType': 1}
+2021-09-01 16:09:41,794 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': 'not fond'}
+2021-09-01 16:09:41,794 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/messages","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.lang.Integer` from String "ä»\x80ä¹\x88é¬¼": not a valid Integer value\n at [Source: (byte[])"{"officialId": 470, "pageNo": 1, "pageSize": "\\u4ec0\\u4e48\\u9b3c", "msgType": 1}"; line: 1, column: 46] (through reference chain: com.heytap.global.community.domain.req.MessageDetailRequest["pageSize"])","time":"2021-09-01 08:09:41","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:41,794 - test_message.test_MessageTable.38 - INFO - 共耗时 0.05897927284240723 秒.
+
+2021-09-01 16:09:41,806 - test_message.test_MessageTable.18 - INFO - .
+用例标题：msgType值为字符串“什么鬼”请求信息列表
+2021-09-01 16:09:41,852 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:41,852 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,852 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,853 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': 5, 'msgType': '什么鬼'}
+2021-09-01 16:09:41,853 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': 'not fond'}
+2021-09-01 16:09:41,853 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/messages","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `int` from String "ä»\x80ä¹\x88é¬¼": not a valid Integer value\n at [Source: (byte[])"{"officialId": 470, "pageNo": 1, "pageSize": 5, "msgType": "\\u4ec0\\u4e48\\u9b3c"}"; line: 1, column: 60] (through reference chain: com.heytap.global.community.domain.req.MessageDetailRequest["msgType"])","time":"2021-09-01 08:09:41","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:41,853 - test_message.test_MessageTable.38 - INFO - 共耗时 0.04693269729614258 秒.
+
+2021-09-01 16:09:41,867 - test_message.test_MessageTable.18 - INFO - .
+用例标题：officialId的key改成空字符串请求信息列表
+2021-09-01 16:09:41,893 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:41,893 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,893 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,893 - test_message.test_MessageTable.35 - INFO - 请求body：{'': 470, 'pageNo': 1, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:41,894 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': "Could not copy property 'officialId' from source to target", 'data': 'not fond'}
+2021-09-01 16:09:41,894 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/messages', 'message': "Could not copy property 'officialId' from source to target; nested exception is java.lang.IllegalArgumentException", 'time': '2021-09-01 08:09:41', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:41,894 - test_message.test_MessageTable.38 - INFO - 共耗时 0.027225971221923828 秒.
+
+2021-09-01 16:09:41,908 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageNo的key改成空字符串请求信息列表
+2021-09-01 16:09:41,930 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:41,930 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,930 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,930 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, '': 1, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:41,931 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': "Could not copy property 'pageNo' from source to target", 'data': 'not fond'}
+2021-09-01 16:09:41,931 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/messages', 'message': "Could not copy property 'pageNo' from source to target; nested exception is java.lang.IllegalArgumentException", 'time': '2021-09-01 08:09:41', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:41,931 - test_message.test_MessageTable.38 - INFO - 共耗时 0.023432254791259766 秒.
+
+2021-09-01 16:09:41,945 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageSize的key改成空字符串请求信息列表
+2021-09-01 16:09:41,969 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:41,969 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:41,970 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:41,970 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, '': 5, 'msgType': 1}
+2021-09-01 16:09:41,970 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': "Could not copy property 'pageSize' from source to target", 'data': 'not fond'}
+2021-09-01 16:09:41,970 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/messages', 'message': "Could not copy property 'pageSize' from source to target; nested exception is java.lang.IllegalArgumentException", 'time': '2021-09-01 08:09:42', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:41,970 - test_message.test_MessageTable.38 - INFO - 共耗时 0.025450944900512695 秒.
+
+2021-09-01 16:09:41,984 - test_message.test_MessageTable.18 - INFO - .
+用例标题：msgType的key改成空字符串请求信息列表
+2021-09-01 16:09:42,011 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:42,011 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,011 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': 5, '': 1}
+2021-09-01 16:09:42,011 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}}
+2021-09-01 16:09:42,011 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}})
+2021-09-01 16:09:42,011 - test_message.test_MessageTable.38 - INFO - 共耗时 0.026493072509765625 秒.
+
+2021-09-01 16:09:42,015 - test_message.test_MessageTable.18 - INFO - .
+用例标题：officialId的key改成字符串“什么鬼”请求信息列表
+2021-09-01 16:09:42,037 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:42,037 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:42,037 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,038 - test_message.test_MessageTable.35 - INFO - 请求body：{'什么鬼': 470, 'pageNo': 1, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:42,038 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': "Could not copy property 'officialId' from source to target", 'data': 'not fond'}
+2021-09-01 16:09:42,038 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/messages', 'message': "Could not copy property 'officialId' from source to target; nested exception is java.lang.IllegalArgumentException", 'time': '2021-09-01 08:09:42', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:42,039 - test_message.test_MessageTable.38 - INFO - 共耗时 0.024870872497558594 秒.
+
+2021-09-01 16:09:42,056 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageNo的key改成字符串“什么鬼”请求信息列表
+2021-09-01 16:09:42,080 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:42,081 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:42,081 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,081 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, '什么鬼': 1, 'pageSize': 5, 'msgType': 1}
+2021-09-01 16:09:42,081 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': "Could not copy property 'pageNo' from source to target", 'data': 'not fond'}
+2021-09-01 16:09:42,082 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/messages', 'message': "Could not copy property 'pageNo' from source to target; nested exception is java.lang.IllegalArgumentException", 'time': '2021-09-01 08:09:42', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:42,082 - test_message.test_MessageTable.38 - INFO - 共耗时 0.02628350257873535 秒.
+
+2021-09-01 16:09:42,096 - test_message.test_MessageTable.18 - INFO - .
+用例标题：pageSize的key改成字符串“什么鬼”请求信息列表
+2021-09-01 16:09:42,123 - test_message.test_MessageTable.29 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 24, in test_MessageTable
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:42,124 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:42,124 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,124 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, '什么鬼': 5, 'msgType': 1}
+2021-09-01 16:09:42,125 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': "Could not copy property 'pageSize' from source to target", 'data': 'not fond'}
+2021-09-01 16:09:42,125 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/messages', 'message': "Could not copy property 'pageSize' from source to target; nested exception is java.lang.IllegalArgumentException", 'time': '2021-09-01 08:09:42', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:42,125 - test_message.test_MessageTable.38 - INFO - 共耗时 0.028923749923706055 秒.
+
+2021-09-01 16:09:42,140 - test_message.test_MessageTable.18 - INFO - .
+用例标题：msgType的key改成字符串“什么鬼”请求信息列表
+2021-09-01 16:09:42,166 - test_message.test_MessageTable.33 - INFO - 请求接口：/games/message/v1/messages
+2021-09-01 16:09:42,167 - test_message.test_MessageTable.34 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,167 - test_message.test_MessageTable.35 - INFO - 请求body：{'officialId': 470, 'pageNo': 1, 'pageSize': 5, '什么鬼': 1}
+2021-09-01 16:09:42,167 - test_message.test_MessageTable.36 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}}
+2021-09-01 16:09:42,167 - test_message.test_MessageTable.37 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officialDto': {'id': 0, 'officialType': 0, 'officialIcon': None, 'officialName': None, 'unReadMsgNum': 0, 'messageInfos': None}}})
+2021-09-01 16:09:42,168 - test_message.test_MessageTable.38 - INFO - 共耗时 0.02789306640625 秒.
+
+2021-09-01 16:09:42,171 - test_message.test_MessageTop.44 - INFO - .
+用例标题：正常请求消息会话列表
+2021-09-01 16:09:42,242 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 53, in test_MessageTop
+    assert requests_result[1]["data"] == expect["data"]
+AssertionError: assert {'currentPage...'pageSize': 0} == {'currentPage...'pageSize': 5}
+  Omitting 1 identical items, use -vv to show
+  Differing items:
+  {'pageSize': 0} != {'pageSize': 5}
+  {'officials': None} != {'officials': [{'id': 1609729999, 'messageInfos': None, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.a...t/appdomain/202102/07/a16aca1eed38039ae287862f3bb357be.jpg', 'officialName': '春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成', ...}]}
+  Use -v to get the full diff
+
+2021-09-01 16:09:42,242 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,242 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,242 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': 1, 'pageSize': 5}
+2021-09-01 16:09:42,242 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 5, 'officials': [{'id': 1609729999, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1613975812, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/22/2012a12331cc4ae3fc6d70261e7061b4.png', 'officialName': 'GamesNewsMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 763, 'sender': '1613975812', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1613992440, 'type': 1, 'bodyList': [{'tag': 'text', 'body': 'icon图的验证测试'}], 'picUrl': None, 'title': 'icon测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612423100, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/04/005516a4f7f428f50000f61aac8cbc80.jpg', 'officialName': 'Games官方', 'unReadMsgNum': 0, 'messageInfos': [{'id': 666, 'sender': '1612423100', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612836840, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试消息5', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/card/basic?pid=50007300', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612686451, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/d1f4230401a7eabf5d9aa72eb3264093.jpg', 'officialName': 'Games2消息', 'unReadMsgNum': 0, 'messageInfos': [{'id': 663, 'sender': '1612686451', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835700, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/cocos/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612684518, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/a16aca1eed38039ae287862f3bb357be.jpg', 'officialName': '春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成', 'unReadMsgNum': 0, 'messageInfos': [{'id': 664, 'sender': '1612684518', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835880, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=463&type=0&web=at%3D1%26ta%3D0%26tid%3D463%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}]}}
+2021-09-01 16:09:42,243 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,243 - test_message.test_MessageTop.64 - INFO - 共耗时 0.07354879379272461 秒.
+
+2021-09-01 16:09:42,257 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageNo值超大，请求消息会话列表
+2021-09-01 16:09:42,281 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,282 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,282 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': 10000000, 'pageSize': 5}
+2021-09-01 16:09:42,282 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 10000000, 'pageSize': 0, 'officials': None}}
+2021-09-01 16:09:42,282 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 10000000, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,282 - test_message.test_MessageTop.64 - INFO - 共耗时 0.026198863983154297 秒.
+
+2021-09-01 16:09:42,285 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageNo值为空，请求消息会话列表
+2021-09-01 16:09:42,311 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 53, in test_MessageTop
+    assert requests_result[1]["data"] == expect["data"]
+AssertionError: assert {'currentPage...'pageSize': 0} == {'currentPage...'pageSize': 5}
+  Omitting 1 identical items, use -vv to show
+  Differing items:
+  {'pageSize': 0} != {'pageSize': 5}
+  {'officials': None} != {'officials': [{'id': 1608025003, 'messageInfos': [{'block': False, 'bodyList': [{...}], 'channel': 31001, 'compareId'....amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', ...}]}
+  Use -v to get the full diff
+
+2021-09-01 16:09:42,311 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,312 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,312 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': None, 'pageSize': 5}
+2021-09-01 16:09:42,312 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 0, 'pageSize': 5, 'officials': [{'id': 1608025003, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202012/15/dabbda0509c6cfd6c247d2f60a21d997.jpg', 'officialName': 'sss', 'unReadMsgNum': 0, 'messageInfos': [{'id': 635, 'sender': '1608025003', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612778560, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '测试消息2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=465&type=0&web=at%3D1%26ta%3D0%26tid%3D465%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728888, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号不置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1612492022, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/4380488e4869750492045bb50fcfa465.jpg', 'officialName': 'gamesMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 660, 'sender': '1612492022', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612950000, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '跳转链接测试进行跳转'}], 'picUrl': None, 'title': '链接验证测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612769462, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/08/e7c802a44909c96949bf75919bd148e4.jpg', 'officialName': 'GamesEnglish', 'unReadMsgNum': 0, 'messageInfos': [{'id': 662, 'sender': '1612769462', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835640, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/epic/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612346278, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 640, 'sender': '1612346278', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767720, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息测试3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}]}}
+2021-09-01 16:09:42,312 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 0, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,313 - test_message.test_MessageTop.64 - INFO - 共耗时 0.026657819747924805 秒.
+
+2021-09-01 16:09:42,326 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageSize值为空，请求消息会话列表
+2021-09-01 16:09:42,353 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 53, in test_MessageTop
+    assert requests_result[1]["data"] == expect["data"]
+AssertionError: assert {'currentPage...'pageSize': 0} == {'currentPage...pageSize': 12}
+  Omitting 1 identical items, use -vv to show
+  Differing items:
+  {'pageSize': 0} != {'pageSize': 12}
+  {'officials': None} != {'officials': [{'id': 1609729999, 'messageInfos': None, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.a....amazonaws.com/openplat/appdomain/202102/05/96f7946db9e464d6d16090d689544c9a.jpg', 'officialName': '服务发送者', ...}, ...]}
+  Use -v to get the full diff
+
+2021-09-01 16:09:42,353 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,353 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,353 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': 1, 'pageSize': None}
+2021-09-01 16:09:42,353 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 12, 'officials': [{'id': 1609729999, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1613975812, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/22/2012a12331cc4ae3fc6d70261e7061b4.png', 'officialName': 'GamesNewsMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 763, 'sender': '1613975812', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1613992440, 'type': 1, 'bodyList': [{'tag': 'text', 'body': 'icon图的验证测试'}], 'picUrl': None, 'title': 'icon测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612423100, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/04/005516a4f7f428f50000f61aac8cbc80.jpg', 'officialName': 'Games官方', 'unReadMsgNum': 0, 'messageInfos': [{'id': 666, 'sender': '1612423100', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612836840, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试消息5', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/card/basic?pid=50007300', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612686451, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/d1f4230401a7eabf5d9aa72eb3264093.jpg', 'officialName': 'Games2消息', 'unReadMsgNum': 0, 'messageInfos': [{'id': 663, 'sender': '1612686451', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835700, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/cocos/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612684518, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/a16aca1eed38039ae287862f3bb357be.jpg', 'officialName': '春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成', 'unReadMsgNum': 0, 'messageInfos': [{'id': 664, 'sender': '1612684518', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835880, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=463&type=0&web=at%3D1%26ta%3D0%26tid%3D463%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612511138, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/96f7946db9e464d6d16090d689544c9a.jpg', 'officialName': '服务发送者', 'unReadMsgNum': 0, 'messageInfos': [{'id': 638, 'sender': '1612511138', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767660, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728340, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-sto', 'officialName': '官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 641, 'sender': '1609728340', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767780, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间验证下发长度2'}], 'picUrl': None, 'title': 'Games消息测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1608025003, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202012/15/dabbda0509c6cfd6c247d2f60a21d997.jpg', 'officialName': 'sss', 'unReadMsgNum': 0, 'messageInfos': [{'id': 635, 'sender': '1608025003', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612778560, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '测试消息2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=465&type=0&web=at%3D1%26ta%3D0%26tid%3D465%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728888, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号不置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1612492022, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/4380488e4869750492045bb50fcfa465.jpg', 'officialName': 'gamesMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 660, 'sender': '1612492022', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612950000, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '跳转链接测试进行跳转'}], 'picUrl': None, 'title': '链接验证测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612769462, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/08/e7c802a44909c96949bf75919bd148e4.jpg', 'officialName': 'GamesEnglish', 'unReadMsgNum': 0, 'messageInfos': [{'id': 662, 'sender': '1612769462', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835640, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/epic/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612346278, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 640, 'sender': '1612346278', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767720, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息测试3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}]}}
+2021-09-01 16:09:42,354 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,354 - test_message.test_MessageTop.64 - INFO - 共耗时 0.028064966201782227 秒.
+
+2021-09-01 16:09:42,367 - test_message.test_MessageTop.44 - INFO - .
+用例标题：用户未登录，请求消息会话列表
+2021-09-01 16:09:42,394 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,394 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,394 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': 1, 'pageSize': 5}
+2021-09-01 16:09:42,394 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officials': None}}
+2021-09-01 16:09:42,395 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,395 - test_message.test_MessageTop.64 - INFO - 共耗时 0.027982234954833984 秒.
+
+2021-09-01 16:09:42,397 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageNo值为字符串“什么鬼”请求消息会话列表
+2021-09-01 16:09:42,445 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 50, in test_MessageTop
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:42,445 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,446 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,446 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': '什么鬼', 'pageSize': 5}
+2021-09-01 16:09:42,446 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Cannot deserialize value of type `int` from String', 'data': 'not fond'}
+2021-09-01 16:09:42,446 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/sessions","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `int` from String "ä»\x80ä¹\x88é¬¼": not a valid Integer value\n at [Source: (byte[])"{"pageNo": "\\u4ec0\\u4e48\\u9b3c", "pageSize": 5}"; line: 1, column: 12] (through reference chain: com.heytap.global.community.domain.req.MsgSessionReq["pageNo"])","time":"2021-09-01 08:09:42","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:42,446 - test_message.test_MessageTop.64 - INFO - 共耗时 0.04856395721435547 秒.
+
+2021-09-01 16:09:42,459 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageSize值为99999999请求消息会话列表
+2021-09-01 16:09:42,487 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 53, in test_MessageTop
+    assert requests_result[1]["data"] == expect["data"]
+AssertionError: assert {'currentPage...'pageSize': 0} == {'currentPage...pageSize': 12}
+  Omitting 1 identical items, use -vv to show
+  Differing items:
+  {'pageSize': 0} != {'pageSize': 12}
+  {'officials': None} != {'officials': [{'id': 1609729999, 'messageInfos': None, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.a....amazonaws.com/openplat/appdomain/202102/05/96f7946db9e464d6d16090d689544c9a.jpg', 'officialName': '服务发送者', ...}, ...]}
+  Use -v to get the full diff
+
+2021-09-01 16:09:42,488 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,488 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,488 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': 1, 'pageSize': 99999999}
+2021-09-01 16:09:42,488 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 12, 'officials': [{'id': 1609729999, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1613975812, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/22/2012a12331cc4ae3fc6d70261e7061b4.png', 'officialName': 'GamesNewsMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 763, 'sender': '1613975812', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1613992440, 'type': 1, 'bodyList': [{'tag': 'text', 'body': 'icon图的验证测试'}], 'picUrl': None, 'title': 'icon测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612423100, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/04/005516a4f7f428f50000f61aac8cbc80.jpg', 'officialName': 'Games官方', 'unReadMsgNum': 0, 'messageInfos': [{'id': 666, 'sender': '1612423100', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612836840, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试消息5', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/card/basic?pid=50007300', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612686451, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/d1f4230401a7eabf5d9aa72eb3264093.jpg', 'officialName': 'Games2消息', 'unReadMsgNum': 0, 'messageInfos': [{'id': 663, 'sender': '1612686451', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835700, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/cocos/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612684518, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/a16aca1eed38039ae287862f3bb357be.jpg', 'officialName': '春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成', 'unReadMsgNum': 0, 'messageInfos': [{'id': 664, 'sender': '1612684518', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835880, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=463&type=0&web=at%3D1%26ta%3D0%26tid%3D463%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612511138, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/96f7946db9e464d6d16090d689544c9a.jpg', 'officialName': '服务发送者', 'unReadMsgNum': 0, 'messageInfos': [{'id': 638, 'sender': '1612511138', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767660, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728340, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-sto', 'officialName': '官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 641, 'sender': '1609728340', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767780, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间验证下发长度2'}], 'picUrl': None, 'title': 'Games消息测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1608025003, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202012/15/dabbda0509c6cfd6c247d2f60a21d997.jpg', 'officialName': 'sss', 'unReadMsgNum': 0, 'messageInfos': [{'id': 635, 'sender': '1608025003', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612778560, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '测试消息2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=465&type=0&web=at%3D1%26ta%3D0%26tid%3D465%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728888, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号不置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1612492022, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/4380488e4869750492045bb50fcfa465.jpg', 'officialName': 'gamesMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 660, 'sender': '1612492022', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612950000, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '跳转链接测试进行跳转'}], 'picUrl': None, 'title': '链接验证测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612769462, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/08/e7c802a44909c96949bf75919bd148e4.jpg', 'officialName': 'GamesEnglish', 'unReadMsgNum': 0, 'messageInfos': [{'id': 662, 'sender': '1612769462', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835640, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/epic/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612346278, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 640, 'sender': '1612346278', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767720, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息测试3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}]}}
+2021-09-01 16:09:42,489 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,489 - test_message.test_MessageTop.64 - INFO - 共耗时 0.03091740608215332 秒.
+
+2021-09-01 16:09:42,503 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageSize值为字符串“什么鬼”请求消息会话列表
+2021-09-01 16:09:42,546 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 50, in test_MessageTop
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:42,546 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,546 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,546 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': 1, 'pageSize': '什么鬼'}
+2021-09-01 16:09:42,546 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Cannot deserialize value of type `int` from String', 'data': 'not fond'}
+2021-09-01 16:09:42,547 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/sessions","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `int` from String "ä»\x80ä¹\x88é¬¼": not a valid Integer value\n at [Source: (byte[])"{"pageNo": 1, "pageSize": "\\u4ec0\\u4e48\\u9b3c"}"; line: 1, column: 27] (through reference chain: com.heytap.global.community.domain.req.MsgSessionReq["pageSize"])","time":"2021-09-01 08:09:42","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:42,547 - test_message.test_MessageTop.64 - INFO - 共耗时 0.043836116790771484 秒.
+
+2021-09-01 16:09:42,559 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageNo的key是空字符串、请求消息会话列表
+2021-09-01 16:09:42,584 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 53, in test_MessageTop
+    assert requests_result[1]["data"] == expect["data"]
+AssertionError: assert {'currentPage...'pageSize': 0} == {'currentPage...'pageSize': 5}
+  Omitting 1 identical items, use -vv to show
+  Differing items:
+  {'pageSize': 0} != {'pageSize': 5}
+  {'officials': None} != {'officials': [{'id': 1608025003, 'messageInfos': [{'block': False, 'bodyList': [{...}], 'channel': 31001, 'compareId'....amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', ...}]}
+  Use -v to get the full diff
+
+2021-09-01 16:09:42,584 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,585 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,585 - test_message.test_MessageTop.61 - INFO - 请求body：{'': 1, 'pageSize': 5}
+2021-09-01 16:09:42,585 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 0, 'pageSize': 5, 'officials': [{'id': 1608025003, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202012/15/dabbda0509c6cfd6c247d2f60a21d997.jpg', 'officialName': 'sss', 'unReadMsgNum': 0, 'messageInfos': [{'id': 635, 'sender': '1608025003', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612778560, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '测试消息2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=465&type=0&web=at%3D1%26ta%3D0%26tid%3D465%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728888, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号不置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1612492022, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/4380488e4869750492045bb50fcfa465.jpg', 'officialName': 'gamesMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 660, 'sender': '1612492022', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612950000, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '跳转链接测试进行跳转'}], 'picUrl': None, 'title': '链接验证测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612769462, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/08/e7c802a44909c96949bf75919bd148e4.jpg', 'officialName': 'GamesEnglish', 'unReadMsgNum': 0, 'messageInfos': [{'id': 662, 'sender': '1612769462', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835640, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/epic/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612346278, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 640, 'sender': '1612346278', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767720, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息测试3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}]}}
+2021-09-01 16:09:42,585 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 0, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,585 - test_message.test_MessageTop.64 - INFO - 共耗时 0.026038408279418945 秒.
+
+2021-09-01 16:09:42,600 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageSize的key是空字符串、请求消息会话列表
+2021-09-01 16:09:42,626 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 53, in test_MessageTop
+    assert requests_result[1]["data"] == expect["data"]
+AssertionError: assert {'currentPage...'pageSize': 0} == {'currentPage...pageSize': 12}
+  Omitting 1 identical items, use -vv to show
+  Differing items:
+  {'pageSize': 0} != {'pageSize': 12}
+  {'officials': None} != {'officials': [{'id': 1609729999, 'messageInfos': None, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.a....amazonaws.com/openplat/appdomain/202102/05/96f7946db9e464d6d16090d689544c9a.jpg', 'officialName': '服务发送者', ...}, ...]}
+  Use -v to get the full diff
+
+2021-09-01 16:09:42,626 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,626 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,626 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': 1, '': 5}
+2021-09-01 16:09:42,627 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 12, 'officials': [{'id': 1609729999, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1613975812, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/22/2012a12331cc4ae3fc6d70261e7061b4.png', 'officialName': 'GamesNewsMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 763, 'sender': '1613975812', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1613992440, 'type': 1, 'bodyList': [{'tag': 'text', 'body': 'icon图的验证测试'}], 'picUrl': None, 'title': 'icon测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612423100, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/04/005516a4f7f428f50000f61aac8cbc80.jpg', 'officialName': 'Games官方', 'unReadMsgNum': 0, 'messageInfos': [{'id': 666, 'sender': '1612423100', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612836840, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试消息5', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/card/basic?pid=50007300', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612686451, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/d1f4230401a7eabf5d9aa72eb3264093.jpg', 'officialName': 'Games2消息', 'unReadMsgNum': 0, 'messageInfos': [{'id': 663, 'sender': '1612686451', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835700, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/cocos/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612684518, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/a16aca1eed38039ae287862f3bb357be.jpg', 'officialName': '春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成', 'unReadMsgNum': 0, 'messageInfos': [{'id': 664, 'sender': '1612684518', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835880, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=463&type=0&web=at%3D1%26ta%3D0%26tid%3D463%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612511138, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/96f7946db9e464d6d16090d689544c9a.jpg', 'officialName': '服务发送者', 'unReadMsgNum': 0, 'messageInfos': [{'id': 638, 'sender': '1612511138', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767660, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728340, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-sto', 'officialName': '官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 641, 'sender': '1609728340', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767780, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间验证下发长度2'}], 'picUrl': None, 'title': 'Games消息测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1608025003, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202012/15/dabbda0509c6cfd6c247d2f60a21d997.jpg', 'officialName': 'sss', 'unReadMsgNum': 0, 'messageInfos': [{'id': 635, 'sender': '1608025003', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612778560, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '测试消息2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=465&type=0&web=at%3D1%26ta%3D0%26tid%3D465%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728888, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号不置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1612492022, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/4380488e4869750492045bb50fcfa465.jpg', 'officialName': 'gamesMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 660, 'sender': '1612492022', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612950000, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '跳转链接测试进行跳转'}], 'picUrl': None, 'title': '链接验证测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612769462, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/08/e7c802a44909c96949bf75919bd148e4.jpg', 'officialName': 'GamesEnglish', 'unReadMsgNum': 0, 'messageInfos': [{'id': 662, 'sender': '1612769462', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835640, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/epic/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612346278, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 640, 'sender': '1612346278', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767720, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息测试3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}]}}
+2021-09-01 16:09:42,627 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,627 - test_message.test_MessageTop.64 - INFO - 共耗时 0.027046680450439453 秒.
+
+2021-09-01 16:09:42,641 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageNo的key是字符串“字符串”、请求消息会话列表
+2021-09-01 16:09:42,665 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 53, in test_MessageTop
+    assert requests_result[1]["data"] == expect["data"]
+AssertionError: assert {'currentPage...'pageSize': 0} == {'currentPage...'pageSize': 5}
+  Omitting 1 identical items, use -vv to show
+  Differing items:
+  {'pageSize': 0} != {'pageSize': 5}
+  {'officials': None} != {'officials': [{'id': 1608025003, 'messageInfos': [{'block': False, 'bodyList': [{...}], 'channel': 31001, 'compareId'....amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', ...}]}
+  Use -v to get the full diff
+
+2021-09-01 16:09:42,665 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,665 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,666 - test_message.test_MessageTop.61 - INFO - 请求body：{'什么鬼': 1, 'pageSize': 5}
+2021-09-01 16:09:42,666 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 0, 'pageSize': 5, 'officials': [{'id': 1608025003, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202012/15/dabbda0509c6cfd6c247d2f60a21d997.jpg', 'officialName': 'sss', 'unReadMsgNum': 0, 'messageInfos': [{'id': 635, 'sender': '1608025003', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612778560, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '测试消息2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=465&type=0&web=at%3D1%26ta%3D0%26tid%3D465%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728888, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号不置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1612492022, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/4380488e4869750492045bb50fcfa465.jpg', 'officialName': 'gamesMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 660, 'sender': '1612492022', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612950000, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '跳转链接测试进行跳转'}], 'picUrl': None, 'title': '链接验证测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612769462, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/08/e7c802a44909c96949bf75919bd148e4.jpg', 'officialName': 'GamesEnglish', 'unReadMsgNum': 0, 'messageInfos': [{'id': 662, 'sender': '1612769462', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835640, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/epic/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612346278, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 640, 'sender': '1612346278', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767720, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息测试3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}]}}
+2021-09-01 16:09:42,666 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 0, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,666 - test_message.test_MessageTop.64 - INFO - 共耗时 0.024764299392700195 秒.
+
+2021-09-01 16:09:42,680 - test_message.test_MessageTop.44 - INFO - .
+用例标题：pageSize的key是字符串“字符串”、请求消息会话列表
+2021-09-01 16:09:42,706 - test_message.test_MessageTop.55 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 53, in test_MessageTop
+    assert requests_result[1]["data"] == expect["data"]
+AssertionError: assert {'currentPage...'pageSize': 0} == {'currentPage...pageSize': 12}
+  Omitting 1 identical items, use -vv to show
+  Differing items:
+  {'pageSize': 0} != {'pageSize': 12}
+  {'officials': None} != {'officials': [{'id': 1609729999, 'messageInfos': None, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.a....amazonaws.com/openplat/appdomain/202102/05/96f7946db9e464d6d16090d689544c9a.jpg', 'officialName': '服务发送者', ...}, ...]}
+  Use -v to get the full diff
+
+2021-09-01 16:09:42,706 - test_message.test_MessageTop.59 - INFO - 请求接口：/games/message/v1/sessions
+2021-09-01 16:09:42,706 - test_message.test_MessageTop.60 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,706 - test_message.test_MessageTop.61 - INFO - 请求body：{'pageNo': 1, '什么鬼': 5}
+2021-09-01 16:09:42,706 - test_message.test_MessageTop.62 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 12, 'officials': [{'id': 1609729999, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1613975812, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/22/2012a12331cc4ae3fc6d70261e7061b4.png', 'officialName': 'GamesNewsMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 763, 'sender': '1613975812', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1613992440, 'type': 1, 'bodyList': [{'tag': 'text', 'body': 'icon图的验证测试'}], 'picUrl': None, 'title': 'icon测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612423100, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/04/005516a4f7f428f50000f61aac8cbc80.jpg', 'officialName': 'Games官方', 'unReadMsgNum': 0, 'messageInfos': [{'id': 666, 'sender': '1612423100', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612836840, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试消息5', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/card/basic?pid=50007300', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612686451, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/d1f4230401a7eabf5d9aa72eb3264093.jpg', 'officialName': 'Games2消息', 'unReadMsgNum': 0, 'messageInfos': [{'id': 663, 'sender': '1612686451', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835700, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/cocos/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612684518, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/07/a16aca1eed38039ae287862f3bb357be.jpg', 'officialName': '春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成灰春蚕到死丝方尽蜡炬成', 'unReadMsgNum': 0, 'messageInfos': [{'id': 664, 'sender': '1612684518', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835880, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=463&type=0&web=at%3D1%26ta%3D0%26tid%3D463%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612511138, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/96f7946db9e464d6d16090d689544c9a.jpg', 'officialName': '服务发送者', 'unReadMsgNum': 0, 'messageInfos': [{'id': 638, 'sender': '1612511138', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767660, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728340, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-sto', 'officialName': '官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 641, 'sender': '1609728340', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767780, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间验证下发长度2'}], 'picUrl': None, 'title': 'Games消息测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1608025003, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202012/15/dabbda0509c6cfd6c247d2f60a21d997.jpg', 'officialName': 'sss', 'unReadMsgNum': 0, 'messageInfos': [{'id': 635, 'sender': '1608025003', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612778560, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '测试消息2', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/thread/dt?tid=465&type=0&web=at%3D1%26ta%3D0%26tid%3D465%26type%3D0%23%2Fhome', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1609728888, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdopic.f.oppomobile.com/img/201805/09/0e3f0522a4b289b4afd2d67238369de1.png', 'officialName': 'stg演示服务号不置顶', 'unReadMsgNum': 0, 'messageInfos': None}, {'id': 1612492022, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/05/4380488e4869750492045bb50fcfa465.jpg', 'officialName': 'gamesMessage', 'unReadMsgNum': 0, 'messageInfos': [{'id': 660, 'sender': '1612492022', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612950000, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '跳转链接测试进行跳转'}], 'picUrl': None, 'title': '链接验证测试', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/toolkit/data', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612769462, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appdomain/202102/08/e7c802a44909c96949bf75919bd148e4.jpg', 'officialName': 'GamesEnglish', 'unReadMsgNum': 0, 'messageInfos': [{'id': 662, 'sender': '1612769462', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612835640, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '验证时间上排序问题'}], 'picUrl': None, 'title': '测试时间', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': {'type': 0, 'url': 'opap://games/epic/game', 'status': 1}, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}, {'id': 1612346278, 'officialType': 2, 'officialIcon': 'http://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.comhttp://cdo-store-img-test.s3-ap-southeast-1.amazonaws.com/openplat/appd', 'officialName': '评论官方号', 'unReadMsgNum': 0, 'messageInfos': [{'id': 640, 'sender': '1612346278', 'receiver': '2086652896', 'read': 1, 'compareId': None, 'createTime': 1612767720, 'type': 1, 'bodyList': [{'tag': 'text', 'body': '时间上验证排序时间1'}], 'picUrl': None, 'title': '单服务消息测试3', 'expireTime': None, 'status': 1, 'channel': 31001, 'jumpDto': None, 'isReverse': 1, 'senderNickName': None, 'senderIcon': None, 'quote': None, 'operationType': 1, 'block': False}]}]}}
+2021-09-01 16:09:42,707 - test_message.test_MessageTop.63 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'currentPage': 1, 'pageSize': 0, 'officials': None}})
+2021-09-01 16:09:42,707 - test_message.test_MessageTop.64 - INFO - 共耗时 0.02655625343322754 秒.
+
+2021-09-01 16:09:42,721 - test_message.test_MessageRead.70 - INFO - .
+用例标题：请求会话级消息已读接口
+2021-09-01 16:09:42,790 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:42,791 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,791 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': 457, 'latestTime': 0}
+2021-09-01 16:09:42,791 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:42,791 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:42,791 - test_message.test_MessageRead.90 - INFO - 共耗时 0.07151079177856445 秒.
+
+2021-09-01 16:09:42,794 - test_message.test_MessageRead.70 - INFO - .
+用例标题：officialId值为null，请求会话级消息已读接口
+2021-09-01 16:09:42,816 - test_message.test_MessageRead.81 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 76, in test_MessageRead
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:42,817 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:42,817 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,817 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': None, 'latestTime': 0}
+2021-09-01 16:09:42,817 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': None}
+2021-09-01 16:09:42,817 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/read', 'message': 'Internal Server Error', 'time': '2021-09-01 08:09:42', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:42,817 - test_message.test_MessageRead.90 - INFO - 共耗时 0.023007631301879883 秒.
+
+2021-09-01 16:09:42,843 - test_message.test_MessageRead.70 - INFO - .
+用例标题：latestTime值为null，请求会话级消息已读接口
+2021-09-01 16:09:42,867 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:42,868 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,868 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': 457, 'latestTime': None}
+2021-09-01 16:09:42,868 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:42,868 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:42,868 - test_message.test_MessageRead.90 - INFO - 共耗时 0.025501728057861328 秒.
+
+2021-09-01 16:09:42,871 - test_message.test_MessageRead.70 - INFO - .
+用例标题：用户未登录，请求会话级消息已读接口
+2021-09-01 16:09:42,898 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:42,898 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,898 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': 457, 'latestTime': 0}
+2021-09-01 16:09:42,898 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:42,899 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:42,899 - test_message.test_MessageRead.90 - INFO - 共耗时 0.027184009552001953 秒.
+
+2021-09-01 16:09:42,901 - test_message.test_MessageRead.70 - INFO - .
+用例标题：officialId值为字符串“什么鬼”，请求会话级消息已读接口
+2021-09-01 16:09:42,945 - test_message.test_MessageRead.81 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 76, in test_MessageRead
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:42,945 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:42,946 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:42,946 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': '什么鬼', 'latestTime': 0}
+2021-09-01 16:09:42,946 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Cannot deserialize value of type `java.lang.Long` from String', 'data': None}
+2021-09-01 16:09:42,946 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/read","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.lang.Long` from String "ä»\x80ä¹\x88é¬¼": not a valid Long value\n at [Source: (byte[])"{"officialId": "\\u4ec0\\u4e48\\u9b3c", "latestTime": 0}"; line: 1, column: 16] (through reference chain: com.heytap.global.community.domain.req.MessageReadReqV2["officialId"])","time":"2021-09-01 08:09:43","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:42,946 - test_message.test_MessageRead.90 - INFO - 共耗时 0.04575324058532715 秒.
+
+2021-09-01 16:09:42,960 - test_message.test_MessageRead.70 - INFO - .
+用例标题：latestTime值为字符串“什么鬼”，请求会话级消息已读接口
+2021-09-01 16:09:43,012 - test_message.test_MessageRead.81 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 76, in test_MessageRead
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:43,012 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:43,012 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,012 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': 457, 'latestTime': '什么鬼'}
+2021-09-01 16:09:43,012 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Cannot deserialize value of type `java.lang.Long` from String', 'data': None}
+2021-09-01 16:09:43,012 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/read","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `java.lang.Long` from String "ä»\x80ä¹\x88é¬¼": not a valid Long value\n at [Source: (byte[])"{"officialId": 457, "latestTime": "\\u4ec0\\u4e48\\u9b3c"}"; line: 1, column: 35] (through reference chain: com.heytap.global.community.domain.req.MessageReadReqV2["latestTime"])","time":"2021-09-01 08:09:43","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:43,013 - test_message.test_MessageRead.90 - INFO - 共耗时 0.0528717041015625 秒.
+
+2021-09-01 16:09:43,025 - test_message.test_MessageRead.70 - INFO - .
+用例标题：officialId的key改成为空字符串，请求会话级消息已读接口
+2021-09-01 16:09:43,048 - test_message.test_MessageRead.81 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 76, in test_MessageRead
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:43,048 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:43,048 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,049 - test_message.test_MessageRead.87 - INFO - 请求body：{'': 457, 'latestTime': 0}
+2021-09-01 16:09:43,049 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': None}
+2021-09-01 16:09:43,049 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/read', 'message': 'Internal Server Error', 'time': '2021-09-01 08:09:43', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:43,049 - test_message.test_MessageRead.90 - INFO - 共耗时 0.023403406143188477 秒.
+
+2021-09-01 16:09:43,062 - test_message.test_MessageRead.70 - INFO - .
+用例标题：latestTime的key改成空字符串，请求会话级消息已读接口
+2021-09-01 16:09:43,090 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:43,090 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,090 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': 457, '': 0}
+2021-09-01 16:09:43,090 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,091 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,091 - test_message.test_MessageRead.90 - INFO - 共耗时 0.02920246124267578 秒.
+
+2021-09-01 16:09:43,094 - test_message.test_MessageRead.70 - INFO - .
+用例标题：officialId的key改成字符串“什么鬼”，请求会话级消息已读接口
+2021-09-01 16:09:43,120 - test_message.test_MessageRead.81 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 76, in test_MessageRead
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:43,121 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:43,121 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,121 - test_message.test_MessageRead.87 - INFO - 请求body：{'什么鬼': 457, 'latestTime': 0}
+2021-09-01 16:09:43,121 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': None}
+2021-09-01 16:09:43,121 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/read', 'message': 'Internal Server Error', 'time': '2021-09-01 08:09:43', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:43,122 - test_message.test_MessageRead.90 - INFO - 共耗时 0.027898788452148438 秒.
+
+2021-09-01 16:09:43,144 - test_message.test_MessageRead.70 - INFO - .
+用例标题：latestTime的key改成为空字符串，请求会话级消息已读接口
+2021-09-01 16:09:43,169 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:43,169 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,169 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': 457, '什么鬼': 0}
+2021-09-01 16:09:43,170 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,170 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,170 - test_message.test_MessageRead.90 - INFO - 共耗时 0.026326894760131836 秒.
+
+2021-09-01 16:09:43,174 - test_message.test_MessageRead.70 - INFO - .
+用例标题：officialId值为99999999请求会话级消息已读接口
+2021-09-01 16:09:43,201 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:43,201 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,201 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': 99999999, 'latestTime': 0}
+2021-09-01 16:09:43,201 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,201 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,202 - test_message.test_MessageRead.90 - INFO - 共耗时 0.027933835983276367 秒.
+
+2021-09-01 16:09:43,205 - test_message.test_MessageRead.70 - INFO - .
+用例标题：latestTime值为99999999请求会话级消息已读接口
+2021-09-01 16:09:43,230 - test_message.test_MessageRead.85 - INFO - 请求接口：/games/message/v1/read
+2021-09-01 16:09:43,231 - test_message.test_MessageRead.86 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,231 - test_message.test_MessageRead.87 - INFO - 请求body：{'officialId': 457, 'latestTime': 99999999}
+2021-09-01 16:09:43,232 - test_message.test_MessageRead.88 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,232 - test_message.test_MessageRead.89 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,232 - test_message.test_MessageRead.90 - INFO - 共耗时 0.027011632919311523 秒.
+
+2021-09-01 16:09:43,238 - test_message.test_MessageAllRead.97 - INFO - .
+用例标题：一键读取全部信息
+2021-09-01 16:09:43,278 - test_message.test_MessageAllRead.112 - INFO - 请求接口：/games/message/v1/readAll
+2021-09-01 16:09:43,278 - test_message.test_MessageAllRead.113 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,278 - test_message.test_MessageAllRead.114 - INFO - 请求body：{'': 0}
+2021-09-01 16:09:43,278 - test_message.test_MessageAllRead.115 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,279 - test_message.test_MessageAllRead.116 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,279 - test_message.test_MessageAllRead.117 - INFO - 共耗时 0.04104757308959961 秒.
+
+2021-09-01 16:09:43,282 - test_message.test_MessageAllRead.97 - INFO - .
+用例标题：ky修改成字符串“什么鬼”一键读取全部信息
+2021-09-01 16:09:43,305 - test_message.test_MessageAllRead.112 - INFO - 请求接口：/games/message/v1/readAll
+2021-09-01 16:09:43,305 - test_message.test_MessageAllRead.113 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,305 - test_message.test_MessageAllRead.114 - INFO - 请求body：{'什么鬼': 0}
+2021-09-01 16:09:43,305 - test_message.test_MessageAllRead.115 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,305 - test_message.test_MessageAllRead.116 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,305 - test_message.test_MessageAllRead.117 - INFO - 共耗时 0.023936986923217773 秒.
+
+2021-09-01 16:09:43,308 - test_message.test_MessageAllRead.97 - INFO - .
+用例标题：value修改成字符串“什么鬼”一键读取全部信息
+2021-09-01 16:09:43,336 - test_message.test_MessageAllRead.112 - INFO - 请求接口：/games/message/v1/readAll
+2021-09-01 16:09:43,337 - test_message.test_MessageAllRead.113 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,338 - test_message.test_MessageAllRead.114 - INFO - 请求body：{'': '什么鬼'}
+2021-09-01 16:09:43,338 - test_message.test_MessageAllRead.115 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,339 - test_message.test_MessageAllRead.116 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,339 - test_message.test_MessageAllRead.117 - INFO - 共耗时 0.03100109100341797 秒.
+
+2021-09-01 16:09:43,346 - test_message.test_MessageAllRead.97 - INFO - .
+用例标题：value修改成99999999一键读取全部信息
+2021-09-01 16:09:43,370 - test_message.test_MessageAllRead.112 - INFO - 请求接口：/games/message/v1/readAll
+2021-09-01 16:09:43,371 - test_message.test_MessageAllRead.113 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,371 - test_message.test_MessageAllRead.114 - INFO - 请求body：{'': 99999999}
+2021-09-01 16:09:43,371 - test_message.test_MessageAllRead.115 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,371 - test_message.test_MessageAllRead.116 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,371 - test_message.test_MessageAllRead.117 - INFO - 共耗时 0.026151180267333984 秒.
+
+2021-09-01 16:09:43,374 - test_message.test_MessageAllRead.97 - INFO - .
+用例标题：value修改成空值一键读取全部信息
+2021-09-01 16:09:43,398 - test_message.test_MessageAllRead.112 - INFO - 请求接口：/games/message/v1/readAll
+2021-09-01 16:09:43,398 - test_message.test_MessageAllRead.113 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,399 - test_message.test_MessageAllRead.114 - INFO - 请求body：{'': None}
+2021-09-01 16:09:43,399 - test_message.test_MessageAllRead.115 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,399 - test_message.test_MessageAllRead.116 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,399 - test_message.test_MessageAllRead.117 - INFO - 共耗时 0.024821758270263672 秒.
+
+2021-09-01 16:09:43,402 - test_message.test_MessageAllRead.97 - INFO - .
+用例标题：用户未登录一键读取全部信息
+2021-09-01 16:09:43,424 - test_message.test_MessageAllRead.112 - INFO - 请求接口：/games/message/v1/readAll
+2021-09-01 16:09:43,424 - test_message.test_MessageAllRead.113 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,424 - test_message.test_MessageAllRead.114 - INFO - 请求body：{'': 0}
+2021-09-01 16:09:43,424 - test_message.test_MessageAllRead.115 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:43,424 - test_message.test_MessageAllRead.116 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:43,425 - test_message.test_MessageAllRead.117 - INFO - 共耗时 0.02389359474182129 秒.
+
+2021-09-01 16:09:43,427 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：正常请求红点接口
+2021-09-01 16:09:43,521 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,521 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,521 - test_message.test_MessageReddot.141 - INFO - 请求参数：pkgName=com.oneplus.gamespace
+2021-09-01 16:09:43,521 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'userId': '2086652896', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1612769462, 'expireTime': 4204835640, 'latestTime': 1612835640}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': -1, 'expireTime': 4213423689, 'latestTime': 1621423689}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1612346278, 'expireTime': 4204767720, 'latestTime': 1612767720}, {'id': 1612492022, 'expireTime': 4204950000, 'latestTime': 1612950000}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}}
+2021-09-01 16:09:43,522 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'userId': 'zly', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}})
+2021-09-01 16:09:43,522 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.09519243240356445 秒.
+
+2021-09-01 16:09:43,524 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：传非games包名请求红点接口
+2021-09-01 16:09:43,568 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,568 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,568 - test_message.test_MessageReddot.141 - INFO - 请求参数：pkgName=com.nearme.gamecenter
+2021-09-01 16:09:43,568 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'userId': '2086652896', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1612769462, 'expireTime': 4204835640, 'latestTime': 1612835640}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': -1, 'expireTime': 4213423689, 'latestTime': 1621423689}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1612346278, 'expireTime': 4204767720, 'latestTime': 1612767720}, {'id': 1612492022, 'expireTime': 4204950000, 'latestTime': 1612950000}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}}
+2021-09-01 16:09:43,569 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'userId': 'zly', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}})
+2021-09-01 16:09:43,569 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.04524564743041992 秒.
+
+2021-09-01 16:09:43,571 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：不传包名请求红点接口
+2021-09-01 16:09:43,616 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,616 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,616 - test_message.test_MessageReddot.141 - INFO - 请求参数：pkgName=
+2021-09-01 16:09:43,617 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'userId': '2086652896', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1612769462, 'expireTime': 4204835640, 'latestTime': 1612835640}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': -1, 'expireTime': 4213423689, 'latestTime': 1621423689}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1612346278, 'expireTime': 4204767720, 'latestTime': 1612767720}, {'id': 1612492022, 'expireTime': 4204950000, 'latestTime': 1612950000}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}}
+2021-09-01 16:09:43,617 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'userId': 'zly', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}})
+2021-09-01 16:09:43,617 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.04578113555908203 秒.
+
+2021-09-01 16:09:43,620 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：包名为9999999请求红点接口
+2021-09-01 16:09:43,656 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,656 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,657 - test_message.test_MessageReddot.141 - INFO - 请求参数：pkgName=9999999
+2021-09-01 16:09:43,657 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'userId': '2086652896', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1612769462, 'expireTime': 4204835640, 'latestTime': 1612835640}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': -1, 'expireTime': 4213423689, 'latestTime': 1621423689}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1612346278, 'expireTime': 4204767720, 'latestTime': 1612767720}, {'id': 1612492022, 'expireTime': 4204950000, 'latestTime': 1612950000}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}}
+2021-09-01 16:09:43,657 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'userId': 'zly', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}})
+2021-09-01 16:09:43,657 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.03687310218811035 秒.
+
+2021-09-01 16:09:43,661 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：包名为字符串“什么鬼”请求红点接口
+2021-09-01 16:09:43,691 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,692 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,692 - test_message.test_MessageReddot.141 - INFO - 请求参数：pkgName=什么鬼
+2021-09-01 16:09:43,692 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'userId': '2086652896', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1612769462, 'expireTime': 4204835640, 'latestTime': 1612835640}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': -1, 'expireTime': 4213423689, 'latestTime': 1621423689}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1612346278, 'expireTime': 4204767720, 'latestTime': 1612767720}, {'id': 1612492022, 'expireTime': 4204950000, 'latestTime': 1612950000}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}}
+2021-09-01 16:09:43,692 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'userId': 'zly', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}})
+2021-09-01 16:09:43,692 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.03110647201538086 秒.
+
+2021-09-01 16:09:43,695 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：包名为null请求红点接口
+2021-09-01 16:09:43,738 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,738 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,738 - test_message.test_MessageReddot.141 - INFO - 请求参数：pkgName=null
+2021-09-01 16:09:43,739 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': {'userId': '2086652896', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1612769462, 'expireTime': 4204835640, 'latestTime': 1612835640}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': -1, 'expireTime': 4213423689, 'latestTime': 1621423689}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1612346278, 'expireTime': 4204767720, 'latestTime': 1612767720}, {'id': 1612492022, 'expireTime': 4204950000, 'latestTime': 1612950000}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}}
+2021-09-01 16:09:43,739 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': {'userId': 'zly', 'globalMessage': [{'id': 1612423100, 'expireTime': 4206107890, 'latestTime': 1614107890}, {'id': 1612686451, 'expireTime': 4205129800, 'latestTime': 1613129800}, {'id': 1614336936, 'expireTime': 4207919400, 'latestTime': 1615919400}, {'id': 1614336956, 'expireTime': 4206623400, 'latestTime': 1614623400}, {'id': 1609729999, 'expireTime': 4205129200, 'latestTime': 1613129200}, {'id': 1609728888, 'expireTime': 4205129100, 'latestTime': 1613129100}, {'id': 1614333614, 'expireTime': 4206333660, 'latestTime': 1614333660}, {'id': 1614336610, 'expireTime': 4205903400, 'latestTime': 1613903400}, {'id': 1612511138, 'expireTime': 4205129600, 'latestTime': 1613129600}, {'id': 1609728340, 'expireTime': 4205129500, 'latestTime': 1613129500}, {'id': 1613975812, 'expireTime': 4206597945, 'latestTime': 1614597945}, {'id': 1612684518, 'expireTime': 4205129700, 'latestTime': 1613129700}, {'id': 1614164966, 'expireTime': 4206583245, 'latestTime': 1614583245}, {'id': 1608025003, 'expireTime': 4205129400, 'latestTime': 1613129400}, {'id': 1615964703, 'expireTime': 4207919400, 'latestTime': 1615919400}]}})
+2021-09-01 16:09:43,739 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.044191598892211914 秒.
+
+2021-09-01 16:09:43,742 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：pkgName改成99999999请求红点接口
+2021-09-01 16:09:43,773 - test_message.test_MessageReddot.134 - INFO - 报错信息：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 129, in test_MessageReddot
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 400 == 200
+
+2021-09-01 16:09:43,774 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,774 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,775 - test_message.test_MessageReddot.141 - INFO - 请求参数：99999999=com.oneplus.gamespace 
+2021-09-01 16:09:43,775 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Bad Request'}
+2021-09-01 16:09:43,776 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(400, {'path': '/games/reddot/v1', 'message': 'Missing required value: pkgName', 'time': '2021-09-01 08:09:43', 'error': 'Bad Request', 'status': 400})
+2021-09-01 16:09:43,777 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.035866498947143555 秒.
+
+2021-09-01 16:09:43,801 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：pkgName改成空字符请求红点接口
+2021-09-01 16:09:43,835 - test_message.test_MessageReddot.134 - INFO - 报错信息：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 129, in test_MessageReddot
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 400 == 200
+
+2021-09-01 16:09:43,835 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,835 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,835 - test_message.test_MessageReddot.141 - INFO - 请求参数：""=com.oneplus.gamespace 
+2021-09-01 16:09:43,835 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Bad Request'}
+2021-09-01 16:09:43,835 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(400, {'path': '/games/reddot/v1', 'message': 'Missing required value: pkgName', 'time': '2021-09-01 08:09:43', 'error': 'Bad Request', 'status': 400})
+2021-09-01 16:09:43,836 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.035675048828125 秒.
+
+2021-09-01 16:09:43,848 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：pkgName改成字符串“什么鬼”请求红点接口
+2021-09-01 16:09:43,883 - test_message.test_MessageReddot.134 - INFO - 报错信息：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 129, in test_MessageReddot
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 400 == 200
+
+2021-09-01 16:09:43,884 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,885 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,886 - test_message.test_MessageReddot.141 - INFO - 请求参数：什么鬼=com.oneplus.gamespace 
+2021-09-01 16:09:43,886 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Bad Request'}
+2021-09-01 16:09:43,887 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(400, {'path': '/games/reddot/v1', 'message': 'Missing required value: pkgName', 'time': '2021-09-01 08:09:43', 'error': 'Bad Request', 'status': 400})
+2021-09-01 16:09:43,888 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.04007577896118164 秒.
+
+2021-09-01 16:09:43,902 - test_message.test_MessageReddot.123 - INFO - .
+用例标题：pkgName为null请求红点接口
+2021-09-01 16:09:43,946 - test_message.test_MessageReddot.134 - INFO - 报错信息：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 129, in test_MessageReddot
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 400 == 200
+
+2021-09-01 16:09:43,946 - test_message.test_MessageReddot.139 - INFO - 请求接口：/games/reddot/v1
+2021-09-01 16:09:43,946 - test_message.test_MessageReddot.140 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:43,946 - test_message.test_MessageReddot.141 - INFO - 请求参数：null=com.oneplus.gamespace 
+2021-09-01 16:09:43,947 - test_message.test_MessageReddot.142 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Bad Request'}
+2021-09-01 16:09:43,947 - test_message.test_MessageReddot.143 - INFO - 请求到的信息是：(400, {'path': '/games/reddot/v1', 'message': 'Missing required value: pkgName', 'time': '2021-09-01 08:09:44', 'error': 'Bad Request', 'status': 400})
+2021-09-01 16:09:43,947 - test_message.test_MessageReddot.144 - INFO - 共耗时 0.044499874114990234 秒.
+
+2021-09-01 16:09:43,960 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:44,187 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:44,188 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:44,188 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 5, 'operationType': 1}
+2021-09-01 16:09:44,188 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:44,188 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:44,189 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.22954225540161133 秒.
+
+2021-09-01 16:09:44,192 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：新增不存在的帖子id=9999的帖子到黑名单
+2021-09-01 16:09:44,373 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:44,374 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:44,375 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 9999, 'operationType': 1}
+2021-09-01 16:09:44,375 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:44,376 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:44,376 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.18357253074645996 秒.
+
+2021-09-01 16:09:44,384 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：blackType=9999，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:44,564 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:44,564 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:44,564 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 9999, 'blackSubject': 5, 'operationType': 1}
+2021-09-01 16:09:44,564 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:44,564 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:44,565 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.18148326873779297 秒.
+
+2021-09-01 16:09:44,567 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：operationType=9999，新增的帖子id=5的帖子到黑名单
+2021-09-01 16:09:44,756 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:44,757 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:44,757 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 5, 'operationType': 9999}
+2021-09-01 16:09:44,757 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:44,757 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:44,757 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.18999934196472168 秒.
+
+2021-09-01 16:09:44,760 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：blackType=null，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:44,947 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:44,947 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:44,948 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': None, 'blackSubject': 5, 'operationType': 1}
+2021-09-01 16:09:44,948 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:44,948 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:44,948 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.1876211166381836 秒.
+
+2021-09-01 16:09:44,951 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：新增不存在的帖子id=null的帖子到黑名单
+2021-09-01 16:09:45,231 - test_message.test_MessageBlack.162 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 158, in test_MessageBlack
+    assert requests_result[1]["status"] == expect["status"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:45,231 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:45,231 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:45,231 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': None, 'operationType': 1}
+2021-09-01 16:09:45,231 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:45,232 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 500, 'msg': 'error', 'data': None})
+2021-09-01 16:09:45,232 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.28125452995300293 秒.
+
+2021-09-01 16:09:45,245 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：operationType=null，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:45,438 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:45,439 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:45,440 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 5, 'operationType': None}
+2021-09-01 16:09:45,440 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:45,441 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:45,441 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.19715309143066406 秒.
+
+2021-09-01 16:09:45,444 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：blackType=字符串"什么鬼"，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:45,485 - test_message.test_MessageBlack.162 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 157, in test_MessageBlack
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:45,485 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:45,485 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:45,485 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': '什么鬼', 'blackSubject': 5, 'operationType': 1}
+2021-09-01 16:09:45,485 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Cannot deserialize value of type `int` from String', 'data': None}
+2021-09-01 16:09:45,486 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/black","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `int` from String "ä»\x80ä¹\x88é¬¼": not a valid Integer value\n at [Source: (byte[])"{"blackType": "\\u4ec0\\u4e48\\u9b3c", "blackSubject": 5, "operationType": 1}"; line: 1, column: 15] (through reference chain: com.heytap.global.community.domain.req.MsgBlackRequest["blackType"])","time":"2021-09-01 08:09:45","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:45,486 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.04194521903991699 秒.
+
+2021-09-01 16:09:45,499 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：新增不存在的帖子id=字符串"什么鬼"的帖子到黑名单
+2021-09-01 16:09:45,677 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:45,677 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:45,677 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': '什么鬼', 'operationType': 1}
+2021-09-01 16:09:45,677 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:45,678 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:45,678 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.17949438095092773 秒.
+
+2021-09-01 16:09:45,680 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：operationType=字符串"什么鬼"，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:45,724 - test_message.test_MessageBlack.162 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 157, in test_MessageBlack
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:45,725 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:45,725 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:45,725 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 5, 'operationType': '什么鬼'}
+2021-09-01 16:09:45,725 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'Cannot deserialize value of type `int` from String', 'data': None}
+2021-09-01 16:09:45,725 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(500, '{"path":"/games/message/v1/black","message":"com.fasterxml.jackson.databind.exc.InvalidFormatException: Cannot deserialize value of type `int` from String "ä»\x80ä¹\x88é¬¼": not a valid Integer value\n at [Source: (byte[])"{"blackType": 1, "blackSubject": 5, "operationType": "\\u4ec0\\u4e48\\u9b3c"}"; line: 1, column: 54] (through reference chain: com.heytap.global.community.domain.req.MsgBlackRequest["operationType"])","time":"2021-09-01 08:09:45","error":"Internal Server Error","status":500}')
+2021-09-01 16:09:45,725 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.04528522491455078 秒.
+
+2021-09-01 16:09:45,739 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：key：blackSubject改成空字符串，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:46,021 - test_message.test_MessageBlack.162 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 158, in test_MessageBlack
+    assert requests_result[1]["status"] == expect["status"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:46,021 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:46,021 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:46,021 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, '': 5, 'operationType': 1}
+2021-09-01 16:09:46,021 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': None}
+2021-09-01 16:09:46,022 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 500, 'msg': 'error', 'data': None})
+2021-09-01 16:09:46,022 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.28284239768981934 秒.
+
+2021-09-01 16:09:46,036 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：key：operationType改成空字符串，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:46,061 - test_message.test_MessageBlack.162 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 157, in test_MessageBlack
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:46,061 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:46,062 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:46,062 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 5, '': 1}
+2021-09-01 16:09:46,062 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': None}
+2021-09-01 16:09:46,063 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/black', 'message': 'Internal Server Error', 'time': '2021-09-01 08:09:46', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:46,063 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.026642322540283203 秒.
+
+2021-09-01 16:09:46,075 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：key：blackType改成空字符串，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:46,300 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:46,300 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:46,300 - test_message.test_MessageBlack.168 - INFO - 请求body：{'': 1, 'blackSubject': 5, 'operationType': 1}
+2021-09-01 16:09:46,300 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:46,301 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:46,301 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.2258460521697998 秒.
+
+2021-09-01 16:09:46,304 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：key：blackSubject改成字符串“什么鬼”，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:46,589 - test_message.test_MessageBlack.162 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 158, in test_MessageBlack
+    assert requests_result[1]["status"] == expect["status"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:46,589 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:46,589 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:46,590 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, '什么鬼': 5, 'operationType': 1}
+2021-09-01 16:09:46,590 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': None}
+2021-09-01 16:09:46,590 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 500, 'msg': 'error', 'data': None})
+2021-09-01 16:09:46,590 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.287294864654541 秒.
+
+2021-09-01 16:09:46,603 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：key：operationType改成字符串“什么鬼”，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:46,627 - test_message.test_MessageBlack.162 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 157, in test_MessageBlack
+    assert requests_result[0] == expect["status_code"]
+AssertionError: assert 500 == 200
+
+2021-09-01 16:09:46,628 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:46,628 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:46,628 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 5, '什么鬼': 1}
+2021-09-01 16:09:46,628 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'bad request', 'data': None}
+2021-09-01 16:09:46,628 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(500, {'path': '/games/message/v1/black', 'message': 'Internal Server Error', 'time': '2021-09-01 08:09:46', 'error': 'Internal Server Error', 'status': 500})
+2021-09-01 16:09:46,628 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.026201963424682617 秒.
+
+2021-09-01 16:09:46,642 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：key：blackType改成字符串“什么鬼”，新增帖子id=5的帖子到黑名单
+2021-09-01 16:09:46,824 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:46,824 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:46,824 - test_message.test_MessageBlack.168 - INFO - 请求body：{'什么鬼': 1, 'blackSubject': 5, 'operationType': 1}
+2021-09-01 16:09:46,824 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:46,824 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:46,825 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.18271398544311523 秒.
+
+2021-09-01 16:09:46,827 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：把帖子id=5的帖子移除黑名单
+2021-09-01 16:09:47,021 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:47,022 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_pvgic3h66P2+h0Z9pKTAzGvRpX2SvdJajtYsksXfpw0E8cP7+8DeK47KtoGOJGVkVYkIVmBZY5eDxHUMYdhUYpLHXC8QpjqjhPk4KlZeW7U=', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:47,022 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 5, 'operationType': 2}
+2021-09-01 16:09:47,022 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'success', 'data': None}
+2021-09-01 16:09:47,022 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:47,023 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.19503235816955566 秒.
+
+2021-09-01 16:09:47,026 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：用户未登录，把tid=5的帖子加入黑名单
+2021-09-01 16:09:47,346 - test_message.test_MessageBlack.162 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 159, in test_MessageBlack
+    assert requests_result[1]["msg"] == expect["msg"]
+AssertionError: assert 'success' == 'not login'
+  - not login
+  + success
+
+2021-09-01 16:09:47,347 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:47,348 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:47,349 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 5, 'operationType': 1}
+2021-09-01 16:09:47,350 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'not login', 'data': None}
+2021-09-01 16:09:47,351 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:47,352 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.32596516609191895 秒.
+
+2021-09-01 16:09:47,375 - test_message.test_MessageBlack.151 - INFO - .
+用例标题：用户未登录，把tid=5的帖子移除黑名单
+2021-09-01 16:09:47,563 - test_message.test_MessageBlack.162 - ERROR - 报错，错误信息是：Traceback (most recent call last):
+  File "F:\python_pytest\GaamesInterface\test_case\test_message.py", line 159, in test_MessageBlack
+    assert requests_result[1]["msg"] == expect["msg"]
+AssertionError: assert 'success' == 'not login'
+  - not login
+  + success
+
+2021-09-01 16:09:47,563 - test_message.test_MessageBlack.166 - INFO - 请求接口：/games/message/v1/black
+2021-09-01 16:09:47,563 - test_message.test_MessageBlack.167 - INFO - 请求到头：{'id': '//869372030027653', 'User-Agent': 'b/c/d/e/f/31001//', 'locale': 'zh_CN;IN;TT', 'UT': 'TOKEN_', 'Content-Type': 'application/JSON; charset=UTF-8', 'Accept': 'application/JSON; charset=UTF-8'}
+2021-09-01 16:09:47,563 - test_message.test_MessageBlack.168 - INFO - 请求body：{'blackType': 1, 'blackSubject': 5, 'operationType': 2}
+2021-09-01 16:09:47,564 - test_message.test_MessageBlack.169 - INFO - 请求的期望结果：{'status_code': 200, 'status': 200, 'msg': 'not login', 'data': None}
+2021-09-01 16:09:47,564 - test_message.test_MessageBlack.170 - INFO - 请求到的信息是：(200, {'status': 200, 'msg': 'success', 'data': None})
+2021-09-01 16:09:47,564 - test_message.test_MessageBlack.171 - INFO - 共耗时 0.19045019149780273 秒.
+
